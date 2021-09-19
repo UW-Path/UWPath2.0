@@ -129,9 +129,6 @@ export default {
     exportXLS() {
       this.export({ PDF: false, XLS: true });
     },
-    changeTab(event) {
-      console.log(event);
-    },
     scrollTable() {
       this.inTable = true;
     },

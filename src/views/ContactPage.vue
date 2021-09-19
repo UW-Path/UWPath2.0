@@ -16,6 +16,7 @@
         Plan Courses
       </v-btn>
       <v-btn text color="white" v-on:click="goToAboutUsPage"> About </v-btn>
+      <auth-button />
     </v-app-bar>
     <v-container
       class="contact-page-content-container"
@@ -107,11 +108,13 @@
 
 <script>
 import { mapActions } from "vuex";
+import AuthButton from "../components/AuthButton.vue";
 import UWPathIcon from "../components/UWPathIcon";
 export default {
   name: "CourseSelection",
   components: {
-    UWPathIcon
+    UWPathIcon,
+    AuthButton
   },
   data() {
     return {

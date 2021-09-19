@@ -7,6 +7,7 @@ import courses from "./modules/courses";
 import programInfo from "./modules/programInfo";
 import courseSelection from "./modules/courseSelection";
 import email from "./modules/email";
+import user from "./modules/user";
 
 import { CourseRequirement } from "../models/courseRequirementModel";
 import { MajorRequirement, OtherRequirement } from "../models/ProgramModel";
@@ -18,7 +19,8 @@ export default new Vuex.Store({
     courses,
     courseSelection,
     programInfo,
-    email
+    email,
+    user
   },
   plugins: [
     createPersistedState({

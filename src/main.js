@@ -6,6 +6,21 @@ import router from "./router";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import VueAnalytics from "vue-analytics";
+import firebase from "firebase/app";
+import "firebase/analytics";
+
+var firebaseConfig = {
+  apiKey: "AIzaSyAz-abljp-yHxlgSMO465rp0zGoZBcsJzk",
+  authDomain: "uwpath-879ac.firebaseapp.com",
+  projectId: "uwpath-879ac",
+  storageBucket: "uwpath-879ac.appspot.com",
+  messagingSenderId: "288015124617",
+  appId: "1:288015124617:web:1d0b2a7e0dc8a9207f9e58",
+  measurementId: "G-7301M3YSJ5"
+};
+
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
 
 Vue.config.productionTip = false;
 

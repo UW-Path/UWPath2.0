@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 import { v4 as uuidv4 } from "uuid";
 import { CourseRequirement } from "../../models/courseRequirementModel";
 
@@ -58,6 +58,7 @@ export default {
   },
   name: "AddChecklistRequirementModal",
   methods: {
+    ...mapActions(["updateFirestore"]),
     ...mapMutations(["addChecklistRequirement"]),
     enableDialog: function() {
       this.dialog = true;
@@ -81,6 +82,7 @@ export default {
           programType: this.programType
         });
         this.dialog = false;
+        this.updateFirestore();
       }
     }
   },

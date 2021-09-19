@@ -12,6 +12,7 @@
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "downloadjs": "^1.4.7",
+    "firebase": "^8.10.0",
     "install": "^0.13.0",
     "ismobilejs": "^1.1.1",
     "js-cookie": "^2.2.1",

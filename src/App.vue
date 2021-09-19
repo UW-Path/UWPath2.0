@@ -12,6 +12,9 @@ export default {
     deleted() {}
   },
   created() {
+    // Create session flag to redirect users with existing plans to course selection
+    sessionStorage.setItem("sessionStarted", this.$route.name === "Landing");
+    // Fetch the majors
     this.fetchMajors();
     window.addEventListener("beforeunload", this.deleted);
   }

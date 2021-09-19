@@ -38,12 +38,13 @@ export default {
   },
   name: "ResetChecklistConfirmationModal",
   methods: {
-    ...mapActions(["fillOutChecklist"]),
+    ...mapActions(["fillOutChecklist", "updateFirestore"]),
     enableDialog: function() {
       this.dialog = true;
     },
     resetChecklist() {
       this.fillOutChecklist();
+      this.updateFirestore();
       this.dialog = false;
     },
     cancelReset() {

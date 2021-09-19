@@ -113,7 +113,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapMutations, mapActions } from "vuex";
 import draggable from "vuedraggable";
 import RequirementOptionsModal from "../Modals/RequirementOptionsModal";
 import { CourseRequirement } from "../../models/courseRequirementModel";
@@ -137,6 +137,7 @@ export default {
   },
   methods: {
     ...mapMutations(["sortRequirements", "updateCacheTime"]),
+    ...mapActions(["updateFirestore"]),
     //card is not cloned if it only has one list and that
     pullFunction: function() {
       return this.lastClickdownReq.number_of_courses === 1 ||
@@ -162,6 +163,7 @@ export default {
       changedReq.inRequirementBar = true;
       changedReq.overridden = false;
       this.sortRequirements();
+      this.updateFirestore();
     },
     setLastClicked(requirement) {
       this.lastClickdownReq = requirement;

@@ -2,6 +2,7 @@ import axios from "axios";
 import TrieSearch from "trie-search";
 import { CourseRequirement } from "../../models/courseRequirementModel";
 import * as download from "downloadjs";
+import { v4 as uuidv4 } from "uuid";
 import { backend_api } from "../../backendAPI";
 
 const mathCourses = [
@@ -825,7 +826,7 @@ const actions = {
         console.error(error);
       });
   },
-  fillOutChecklist({ commit, getters }) {
+  fillOutChecklist({ commit, getters, dispatch }) {
     if (!getters.majorRequirements.length) return;
     axios
       .get(backend_api + "/api/requirements/requirements", {
@@ -1008,6 +1009,7 @@ const actions = {
         } else {
           commit("setChecklistOptionRequirements", {});
         }
+        dispatch("updateFirestore");
       })
       .catch(err => {
         // eslint-disable-next-line no-console
@@ -1322,6 +1324,52 @@ const mutations = {
   },
   clearTable: state => {
     state.table = JSON.parse(JSON.stringify(defaultTable));
+  },
+  loadCourseSelectionFromFirestore: (state, firestoreCourseSelectionModule) => {
+    state.table = firestoreCourseSelectionModule.table.map(term => {
+      return {
+        courses: term.courses.map(req => {
+          req.id = uuidv4();
+          return new CourseRequirement(req);
+        })
+      };
+    });
+    for (const [programName, requirements] of Object.entries(
+      firestoreCourseSelectionModule.checklistMajorRequirements
+    )) {
+      firestoreCourseSelectionModule.checklistMajorRequirements[
+        programName
+      ] = requirements.map(req => {
+        req.id = uuidv4();
+        return new CourseRequirement(req);
+      });
+    }
+    for (const [programName, requirements] of Object.entries(
+      firestoreCourseSelectionModule.checklistMinorRequirements
+    )) {
+      firestoreCourseSelectionModule.checklistMinorRequirements[
+        programName
+      ] = requirements.map(req => {
+        req.id = uuidv4();
+        return new CourseRequirement(req);
+      });
+    }
+    for (const [programName, requirements] of Object.entries(
+      firestoreCourseSelectionModule.checklistOptionRequirements
+    )) {
+      firestoreCourseSelectionModule.checklistOptionRequirements[
+        programName
+      ] = requirements.map(req => {
+        req.id = uuidv4();
+        return new CourseRequirement(req);
+      });
+    }
+    state.checklistMajorRequirements =
+      firestoreCourseSelectionModule.checklistMajorRequirements;
+    state.checklistMinorRequirements =
+      firestoreCourseSelectionModule.checklistMinorRequirements;
+    state.checklistOptionRequirements =
+      firestoreCourseSelectionModule.checklistOptionRequirements;
   }
 };
 

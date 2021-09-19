@@ -126,7 +126,7 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 export default {
   name: "ProgramChecklistSection",
   data() {
@@ -135,6 +135,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["updateFirestore"]),
     ...mapMutations(["updateSingleRequirement", "removeSingleRequirement"]),
     checkboxToggled(requirement) {
       requirement.checklistOverride = requirement.prereqs_met;
@@ -150,6 +151,7 @@ export default {
         requirement: requirement,
         programType: this.programType
       });
+      this.updateFirestore();
     }
   },
   props: ["requirements", "program", "programType", "editMode"]

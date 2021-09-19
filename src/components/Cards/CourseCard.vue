@@ -265,11 +265,16 @@ export default {
   },
   methods: {
     ...mapMutations(["validateCourses"]),
-    ...mapActions(["toggleCourseOverride", "updateChecklist"]),
+    ...mapActions([
+      "toggleCourseOverride",
+      "updateChecklist",
+      "updateFirestore"
+    ]),
     deleteCourse() {
       this.courseData.clickedDelete = true;
       this.validateCourses();
       this.updateChecklist();
+      this.updateFirestore();
     },
     toggleOverride(courseIndex, termIndex) {
       this.toggleCourseOverride({ courseIndex, termIndex });

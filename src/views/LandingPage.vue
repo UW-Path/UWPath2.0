@@ -6,7 +6,8 @@
         Plan Courses
       </v-btn>
       <v-btn text color="white" v-on:click="goToContactPage"> Contact </v-btn>
-      <v-btn text color="white" v-on:click="goToAboutPage"> About</v-btn>
+      <v-btn text color="white" v-on:click="goToAboutPage"> About </v-btn>
+      <auth-button />
     </v-app-bar>
     <v-container class="container">
       <v-row no-gutters justify="center" align="center" class="center">
@@ -80,7 +81,7 @@
                 @click="cancelYearSelection()"
                 >mdi-arrow-left-circle</v-icon
               >
-              <div class="helper-text">Select a different major</div>
+              <div class="helper-text">Cancel</div>
             </div>
           </div>
 
@@ -105,8 +106,13 @@
 
 <script>
 import { mapGetters, mapActions, mapMutations } from "vuex";
+import AuthButton from "../components/AuthButton.vue";
+
 export default {
   name: "Home",
+  components: {
+    AuthButton
+  },
   data() {
     return {
       majorYearList: [],
@@ -181,6 +187,15 @@ export default {
     ...mapGetters(["allMajors", "findMajorByProgram", "majorRequirements"]),
     getAcdemicYearLabel() {
       return "Select Academic Year: " + this.selectedMajor;
+    }
+  },
+  created() {
+    if (
+      sessionStorage.getItem("sessionStarted") == "true" &&
+      this.majorRequirements.length > 0
+    ) {
+      sessionStorage.setItem("sessionStarted", false);
+      this.goToCourseSelectionPage();
     }
   }
 };

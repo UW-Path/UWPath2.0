@@ -271,7 +271,11 @@ export default {
       "updateCacheTime",
       "setCacheItem"
     ]),
-    ...mapActions(["updateChecklist", "toggleCourseOverride"]),
+    ...mapActions([
+      "updateChecklist",
+      "toggleCourseOverride",
+      "updateFirestore"
+    ]),
     async updateAllCourseChoicesTrie() {
       // Handle cases like "BUS 300-" where only a single course code is used but many choices exist
       if (
@@ -320,6 +324,7 @@ export default {
           this.validateCourses();
           this.updateChecklist();
           this.sortRequirements();
+          this.updateFirestore();
         } else {
           this.course.hidden = true;
         }
@@ -332,6 +337,7 @@ export default {
       this.separateRequirement(this.course);
       this.validateCourses();
       this.updateChecklist();
+      this.updateFirestore();
       this.dialog = false;
     },
     quickSelectCourse: function(course) {
@@ -341,6 +347,7 @@ export default {
       this.separateRequirement(this.course);
       this.validateCourses();
       this.updateChecklist();
+      this.updateFirestore();
       this.dialog = false;
     },
     deselectCourse() {
@@ -348,6 +355,7 @@ export default {
       this.course.deselect();
       this.validateCourses();
       this.updateChecklist();
+      this.updateFirestore();
       this.dialog = false;
     },
     isSelected: function(courseCode) {
@@ -630,10 +638,10 @@ export default {
   padding-bottom: 5px;
 }
 
-.modal {
-  /* height: min(500px, 90%) !important;
-    max-height: min(500px, 90%) !important; */
-}
+/* .modal {
+  height: min(500px, 90%) !important;
+    max-height: min(500px, 90%) !important;
+} */
 
 .modal-actions {
   position: absolute;

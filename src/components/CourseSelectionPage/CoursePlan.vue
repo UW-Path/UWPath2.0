@@ -91,7 +91,7 @@ export default {
       "updateCacheTime",
       "sortRequirements"
     ]),
-    ...mapActions(["updateChecklist"]),
+    ...mapActions(["updateChecklist", "updateFirestore"]),
     termMouseOver(termIndex) {
       this.termHovered = termIndex;
     },
@@ -112,6 +112,7 @@ export default {
       this.validateCourses();
       this.updateChecklist();
       this.sortRequirements();
+      this.updateFirestore();
     },
     change(event) {
       this.updateCacheTime();
@@ -125,6 +126,7 @@ export default {
         this.decrementRequirementID(changedReq.original_requirement_id);
       }
       changedReq.inRequirementBar = false;
+      this.updateFirestore();
     },
     checkMobile() {
       return isMobile(window.navigator).any;

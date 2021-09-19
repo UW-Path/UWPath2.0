@@ -306,6 +306,17 @@ const mutations = {
       for (let section of Object.values(spec.sections()))
         if (checkArrayForID(section)) return;
     }
+  },
+  loadCoursesFromFireStore: (state, fireStoreCoursesModule) => {
+    state.majorRequirements = fireStoreCoursesModule.majorRequirements.map(
+      req => new MajorRequirement(req)
+    );
+    state.minorRequirements = fireStoreCoursesModule.minorRequirements.map(
+      req => new OtherRequirement(req)
+    );
+    state.specRequirements = fireStoreCoursesModule.specRequirements.map(
+      req => new OtherRequirement(req)
+    );
   }
 };
 

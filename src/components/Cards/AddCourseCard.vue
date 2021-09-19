@@ -162,7 +162,7 @@ export default {
   },
   methods: {
     ...mapMutations(["addCourse", "validateCourses"]),
-    ...mapActions(["updateChecklist"]),
+    ...mapActions(["updateChecklist", "updateFirestore"]),
     enableDialog() {
       this.dialog = true;
     },
@@ -208,6 +208,7 @@ export default {
       this.addCourse({ newRequirement: req, termIndex: this.termIndex });
       this.validateCourses();
       this.updateChecklist();
+      this.updateFirestore();
     },
     selectAddedCourse() {
       var addedCourse = this.selectedCourse;
@@ -230,6 +231,7 @@ export default {
       });
       this.validateCourses();
       this.updateChecklist();
+      this.updateFirestore();
     },
     quickSelectAddedCourse(course) {
       this.selectedCourse = course;
@@ -253,6 +255,7 @@ export default {
       });
       this.validateCourses();
       this.updateChecklist();
+      this.updateFirestore();
     }
   },
   async mounted() {

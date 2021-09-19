@@ -44,6 +44,7 @@
     <v-spacer></v-spacer>
     <v-btn text color="white" v-on:click="goToContactPage"> Contact </v-btn>
     <v-btn text color="white" v-on:click="goToAboutUsPage"> About </v-btn>
+    <auth-button style="margin-right: 2px" />
   </v-app-bar>
 </template>
 
@@ -53,11 +54,13 @@ import UWPathIcon from "../UWPathIcon";
 import { mapGetters } from "vuex";
 import { getLinkToUnderGradCalender } from "../../getLinkToUnderGradCalender";
 
+import AuthButton from "../AuthButton.vue";
 export default {
   name: "ProgramSelectionBar",
   components: {
     ProgramSelectionModal,
-    UWPathIcon
+    UWPathIcon,
+    AuthButton
   },
   computed: {
     ...mapGetters([
